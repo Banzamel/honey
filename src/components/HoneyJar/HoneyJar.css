@@ -1,0 +1,20 @@
+.honey-jar {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+    padding: var(--honey-space-lg);
+    border-radius: var(--honey-radius-md);
+    background: var(--honey-surface);
+    border: 1px solid var(--honey-border);
+    color: var(--honey-text);
+}
+
+.honey-jar-label {
+    color: rgba(var(--honey-primary-rgb), 1);
+    font-size: var(--honey-font-size-sm);
+}
+
+.honey-jar-body {
+    color: var(--honey-text-secondary);
+    font-size: var(--honey-font-size-sm);
+}
