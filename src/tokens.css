@@ -79,18 +79,10 @@
     --honey-text-muted: #8b929d;
 }
 
-/* Shared primitive classes used by Honey's cookie components.
- *
- * These mirror the look of MineralUI's MButton / MCard / MDrawer / MToggle /
- * MTable without taking a runtime dependency on them. Native <button>/<div>
- * elements get these classes inside the cookie components.
- *
- * Naming convention: `.honey-<primitive>` for the root, `.honey-<primitive>-<variant>`
- * for variants. Composition with state classes (`.is-active`, `.is-disabled`).
- *
- * TODO (Phase 1.5): port the actual styling from MineralUI's MButton.css,
- * MCard.css, MDrawer.css, MToggle.css and MDataTable.css — scoped under the
- * `.honey-*` prefix instead of MineralUI's `.button` / `.card` etc.
+/* Shared primitive classes (button / card / drawer / toggle / table / banner /
+ * typography helpers) live in primitives.css — kept in a separate file so
+ * tokens.css can stay a pure design-token sheet that consumers can override
+ * without touching layout rules.
  */
 
 .honey-root {

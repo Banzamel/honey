@@ -1,0 +1,579 @@
+/*
+ * Honey primitive styles.
+ *
+ * Distilled from MineralUI's button/card/drawer/toggle/input/table CSS, scoped
+ * under .honey-* so they don't collide with consumer markup. Driven entirely
+ * by the design tokens in `tokens.css` (no hard-coded colors), so consumers
+ * can retheme the whole cookie UI by aliasing the tokens.
+ *
+ * Intentionally NOT a full UI kit — only the primitives the cookie components
+ * need (banner / consent modal / preferences drawer / declaration table /
+ * trigger button). Adding components later (a HoneyDialog, a HoneyTabs)
+ * should be discouraged; the rule is "if it isn't used by a cookie component,
+ * it doesn't ship in primitives.css".
+ */
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+
+.honey-btn {
+    --honey-btn-color-rgb: var(--honey-primary-rgb);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--honey-space-sm);
+    padding: 0 var(--honey-space-lg);
+    min-height: 40px;
+    border: 1px solid transparent;
+    border-radius: var(--honey-radius-md);
+    background: transparent;
+    color: var(--honey-text);
+    font-family: inherit;
+    font-size: var(--honey-font-size-sm);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+        background-color var(--honey-transition-fast),
+        border-color var(--honey-transition-fast),
+        color var(--honey-transition-fast),
+        box-shadow var(--honey-transition-fast),
+        transform var(--honey-transition-fast);
+}
+
+.honey-btn:disabled,
+.honey-btn[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.honey-btn:focus-visible {
+    outline: 2px solid rgba(var(--honey-btn-color-rgb), 0.7);
+    outline-offset: 2px;
+}
+
+.honey-btn-sm {
+    min-height: 32px;
+    padding: 0 var(--honey-space-md);
+    font-size: var(--honey-font-size-xs);
+}
+
+.honey-btn-lg {
+    min-height: 48px;
+    padding: 0 20px;
+    font-size: var(--honey-font-size-md);
+}
+
+/* Filled — primary CTA (Accept all) */
+.honey-btn-filled {
+    background: rgba(var(--honey-btn-color-rgb), 1);
+    color: #fff;
+    border-color: rgba(var(--honey-btn-color-rgb), 1);
+}
+
+.honey-btn-filled:not(:disabled):hover {
+    background: rgba(var(--honey-btn-color-rgb), 0.88);
+    border-color: rgba(var(--honey-btn-color-rgb), 0.88);
+}
+
+/* Outlined — secondary action (Manage, Save preferences) */
+.honey-btn-outlined {
+    border-color: rgba(var(--honey-btn-color-rgb), 0.5);
+    color: rgba(var(--honey-btn-color-rgb), 1);
+}
+
+.honey-btn-outlined:not(:disabled):hover {
+    background: rgba(var(--honey-btn-color-rgb), 0.08);
+    border-color: rgba(var(--honey-btn-color-rgb), 0.8);
+}
+
+/* Ghost — quiet action (Reject optional, Close) */
+.honey-btn-ghost {
+    color: var(--honey-text-secondary);
+}
+
+.honey-btn-ghost:not(:disabled):hover {
+    background: rgba(var(--honey-btn-color-rgb), 0.06);
+    color: var(--honey-text);
+}
+
+/* Color modifiers — pin .honey-btn-color-* on top of any variant */
+.honey-btn-color-primary {
+    --honey-btn-color-rgb: var(--honey-primary-rgb);
+}
+.honey-btn-color-neutral {
+    --honey-btn-color-rgb: var(--honey-neutral-rgb);
+}
+.honey-btn-color-success {
+    --honey-btn-color-rgb: var(--honey-success-rgb);
+}
+.honey-btn-color-warning {
+    --honey-btn-color-rgb: var(--honey-warning-rgb);
+}
+.honey-btn-color-error {
+    --honey-btn-color-rgb: var(--honey-error-rgb);
+}
+.honey-btn-color-info {
+    --honey-btn-color-rgb: var(--honey-info-rgb);
+}
+
+/* ── Card surface ──────────────────────────────────────────────────────── */
+
+.honey-card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid var(--honey-border);
+    border-radius: var(--honey-radius-lg);
+    background: var(--honey-surface);
+    color: var(--honey-text);
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.honey-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+    padding: var(--honey-space-lg);
+    border-bottom: 1px solid var(--honey-border);
+}
+
+.honey-card-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--honey-space-md);
+    padding: var(--honey-space-lg);
+    min-width: 0;
+}
+
+.honey-card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--honey-space-sm);
+    padding: var(--honey-space-md) var(--honey-space-lg);
+    background: var(--honey-surface-elevated);
+    border-top: 1px solid var(--honey-border);
+}
+
+/* ── Banner (fixed bottom, single-card layout) ─────────────────────────── */
+
+.honey-banner {
+    position: fixed;
+    left: 50%;
+    bottom: var(--honey-space-lg);
+    z-index: var(--honey-z-banner);
+    width: min(calc(100% - 2 * var(--honey-space-lg)), 680px);
+    transform: translateX(-50%);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+    animation: honey-banner-in 220ms ease-out;
+}
+
+@keyframes honey-banner-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 12px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* ── Modal-style consent (full-screen overlay) ─────────────────────────── */
+
+.honey-overlay-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--honey-z-banner);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--honey-space-lg);
+    background: rgba(2, 6, 23, 0.56);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: honey-backdrop-in 200ms ease-out;
+}
+
+.honey-overlay-panel {
+    width: min(100%, 640px);
+    max-height: calc(100vh - 2 * var(--honey-space-lg));
+    overflow-y: auto;
+    animation: honey-banner-in 220ms ease-out;
+}
+
+@keyframes honey-backdrop-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Drawer (slide-in side panel for preferences) ──────────────────────── */
+
+.honey-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--honey-z-drawer);
+    background: rgba(2, 6, 23, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: honey-backdrop-in 180ms ease-out;
+}
+
+.honey-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: calc(var(--honey-z-drawer) + 1);
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 480px);
+    background: var(--honey-surface);
+    color: var(--honey-text);
+    border-left: 1px solid var(--honey-border);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
+    animation: honey-drawer-in 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes honey-drawer-in {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.honey-drawer-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+    padding: var(--honey-space-lg);
+    border-bottom: 1px solid var(--honey-border);
+}
+
+.honey-drawer-body {
+    flex: 1 1 auto;
+    padding: var(--honey-space-lg);
+    overflow-y: auto;
+}
+
+.honey-drawer-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--honey-space-sm);
+    padding: var(--honey-space-md) var(--honey-space-lg);
+    background: var(--honey-surface-elevated);
+    border-top: 1px solid var(--honey-border);
+}
+
+.honey-drawer-close {
+    position: absolute;
+    top: var(--honey-space-md);
+    right: var(--honey-space-md);
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: var(--honey-radius-full);
+    background: transparent;
+    color: var(--honey-text-secondary);
+    cursor: pointer;
+    transition: background-color var(--honey-transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.honey-drawer-close:hover {
+    background: rgba(var(--honey-primary-rgb), 0.1);
+    color: var(--honey-text);
+}
+
+/* ── Toggle (binary switch) ────────────────────────────────────────────── */
+
+.honey-toggle {
+    --honey-toggle-color-rgb: var(--honey-primary-rgb);
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.honey-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: inherit;
+}
+
+.honey-toggle-track {
+    position: absolute;
+    inset: 0;
+    background: var(--honey-border);
+    border-radius: var(--honey-radius-full);
+    transition: background-color var(--honey-transition-base);
+}
+
+.honey-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: var(--honey-radius-full);
+    transition: transform var(--honey-transition-base);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.honey-toggle input:checked ~ .honey-toggle-track {
+    background: rgba(var(--honey-toggle-color-rgb), 1);
+}
+
+.honey-toggle input:checked ~ .honey-toggle-thumb {
+    transform: translateX(16px);
+}
+
+.honey-toggle input:disabled ~ .honey-toggle-track,
+.honey-toggle input:disabled ~ .honey-toggle-thumb {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.honey-toggle input:focus-visible ~ .honey-toggle-track {
+    box-shadow: 0 0 0 2px rgba(var(--honey-toggle-color-rgb), 0.5);
+}
+
+/* ── Input ─────────────────────────────────────────────────────────────── */
+
+.honey-input {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--honey-space-sm);
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 36px;
+    padding: 0 var(--honey-space-md);
+    border: 1px solid var(--honey-border);
+    border-radius: var(--honey-radius-md);
+    background: var(--honey-bg);
+    color: var(--honey-text);
+    font-size: var(--honey-font-size-sm);
+    font-family: inherit;
+    transition:
+        border-color var(--honey-transition-fast),
+        box-shadow var(--honey-transition-fast);
+}
+
+.honey-input:hover {
+    border-color: var(--honey-border-hover);
+}
+
+.honey-input:focus-within {
+    border-color: rgba(var(--honey-primary-rgb), 1);
+    box-shadow: 0 0 0 3px rgba(var(--honey-primary-rgb), 0.18);
+}
+
+.honey-input input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    outline: none;
+    padding: 0;
+}
+
+.honey-input-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--honey-text-secondary);
+    flex-shrink: 0;
+}
+
+/* ── Table (cookie declaration / inventory) ────────────────────────────── */
+
+.honey-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--honey-font-size-sm);
+}
+
+.honey-table th,
+.honey-table td {
+    padding: var(--honey-space-sm) var(--honey-space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--honey-border);
+    vertical-align: top;
+}
+
+.honey-table th {
+    color: var(--honey-text-secondary);
+    font-weight: 600;
+    font-size: var(--honey-font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--honey-surface-elevated);
+    position: sticky;
+    top: 0;
+}
+
+.honey-table tr:last-child td {
+    border-bottom: none;
+}
+
+.honey-table tr:hover td {
+    background: rgba(var(--honey-primary-rgb), 0.04);
+}
+
+.honey-table-empty {
+    padding: var(--honey-space-xl) var(--honey-space-md);
+    text-align: center;
+    color: var(--honey-text-muted);
+}
+
+/* ── Layout primitives ─────────────────────────────────────────────────── */
+
+.honey-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-md);
+}
+
+.honey-stack-sm {
+    gap: var(--honey-space-sm);
+}
+
+.honey-stack-xs {
+    gap: var(--honey-space-xs);
+}
+
+.honey-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--honey-space-md);
+}
+
+.honey-inline-sm {
+    gap: var(--honey-space-sm);
+}
+
+.honey-inline-between {
+    justify-content: space-between;
+}
+
+.honey-inline-end {
+    justify-content: flex-end;
+}
+
+/* ── Typography ────────────────────────────────────────────────────────── */
+
+.honey-heading {
+    margin: 0;
+    color: var(--honey-text);
+    font-size: var(--honey-font-size-lg);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.honey-heading-sm {
+    font-size: var(--honey-font-size-md);
+}
+
+.honey-heading-xl {
+    font-size: var(--honey-font-size-xl);
+}
+
+.honey-text {
+    margin: 0;
+    color: var(--honey-text);
+    font-size: var(--honey-font-size-sm);
+    line-height: 1.5;
+}
+
+.honey-text-xs {
+    font-size: var(--honey-font-size-xs);
+}
+
+.honey-text-md {
+    font-size: var(--honey-font-size-md);
+}
+
+.honey-text-muted {
+    color: var(--honey-text-secondary);
+}
+
+.honey-text-bold {
+    font-weight: 600;
+}
+
+.honey-link {
+    color: rgba(var(--honey-primary-rgb), 1);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--honey-transition-fast);
+}
+
+.honey-link:hover {
+    text-decoration: underline;
+}
+
+/* ── Badge / pill (used for "Required" / category labels) ──────────────── */
+
+.honey-badge {
+    --honey-badge-color-rgb: var(--honey-primary-rgb);
+    display: inline-flex;
+    align-items: center;
+    padding: 2px var(--honey-space-sm);
+    border-radius: var(--honey-radius-full);
+    background: rgba(var(--honey-badge-color-rgb), 0.15);
+    color: rgba(var(--honey-badge-color-rgb), 1);
+    font-size: var(--honey-font-size-xs);
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.honey-badge-neutral {
+    --honey-badge-color-rgb: var(--honey-neutral-rgb);
+}
+.honey-badge-success {
+    --honey-badge-color-rgb: var(--honey-success-rgb);
+}
+.honey-badge-warning {
+    --honey-badge-color-rgb: var(--honey-warning-rgb);
+}
+.honey-badge-error {
+    --honey-badge-color-rgb: var(--honey-error-rgb);
+}
+.honey-badge-info {
+    --honey-badge-color-rgb: var(--honey-info-rgb);
+}
+
+/* Light theme adjustments — keep contrast on the chrome / divider colors. */
+[data-honey-theme='light'] .honey-card,
+[data-honey-theme='light'] .honey-drawer {
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+[data-honey-theme='light'] .honey-toggle-thumb {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+}

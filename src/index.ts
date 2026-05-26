@@ -1,5 +1,5 @@
-// Public surface for @banzamel/honey 0.3.0 (Phase 2.2 — bootstrap port complete,
-// UI components still placeholders that render null).
+// Public surface for @banzamel/honey 0.4.0 (Phase 2.3 — CSS primitives
+// landed, UI components still placeholders that render null).
 //
 // Working today (behaviour-equivalent to @banzamel/mineralui-pro@1.x):
 // - CookieConsentProvider + useCookieConsent / useOptionalCookieConsent
@@ -19,8 +19,12 @@
 // Still placeholders (Phase 2.3-2.5):
 // - CookieBanner, CookieConsent, CookieDeclaration, CookiePreferences, CookieTrigger
 
-// Token + base CSS — side-effect import so consumers get styles automatically.
+// Token + base CSS — side-effect imports so consumers get styles automatically.
+// `tokens.css` holds CSS variables consumers can override; `primitives.css`
+// holds the `.honey-btn` / `.honey-card` / `.honey-drawer` / `.honey-toggle` /
+// `.honey-table` styles the cookie components paint themselves with.
 import './tokens.css'
+import './primitives.css'
 
 // Provider, context, persistence, inventory, defaults
 export {
