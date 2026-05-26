@@ -77,12 +77,20 @@ function cssAutoInject(entryNames: string[]): Plugin {
 
 const entryMap = {
     index: resolve(__dirname, 'src/index.ts'),
+    'cookie-consent-bootstrap': resolve(__dirname, 'src/cookie-consent-bootstrap.ts'),
 }
+
+// The bootstrap entry runs before any React/CSS is loaded — it must not pull
+// in styles or trigger the auto-inject runtime. Only inject styles into the
+// React-facing entries.
+const styleInjectedEntries = Object.keys(entryMap).filter(
+    (entryName) => entryName !== 'cookie-consent-bootstrap'
+)
 
 export default defineConfig({
     plugins: [
         dts({insertTypesEntry: true, rollupTypes: false}),
-        cssAutoInject(Object.keys(entryMap)),
+        cssAutoInject(styleInjectedEntries),
     ],
     build: {
         lib: {

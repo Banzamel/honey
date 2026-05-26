@@ -1,15 +1,23 @@
-// Public surface for @banzamel/honey 0.2.0 (Phase 2.1 — provider port complete,
+// Public surface for @banzamel/honey 0.3.0 (Phase 2.2 — bootstrap port complete,
 // UI components still placeholders that render null).
 //
-// The provider (CookieConsentProvider), the typed context hook (useCookieConsent),
-// the persistence helpers (read/write/clear stored consent), the inventory scanner
-// (detectDocumentCookies), the default text pack (DEFAULT_HONEY_TEXTS) and the
-// cross-package change event (HONEY_CONSENT_CHANGE_EVENT) are all real and
-// behaviour-equivalent to what shipped in @banzamel/mineralui-pro@1.x.
+// Working today (behaviour-equivalent to @banzamel/mineralui-pro@1.x):
+// - CookieConsentProvider + useCookieConsent / useOptionalCookieConsent
+// - bootstrapCookieConsent / autoBootstrapCookieConsent: blocks third-party
+//   <script>/<iframe>/<img>, MutationObserver-watches for late injections,
+//   patches Node insertion APIs, syncs to consent changes
+// - scanCookieSurface / reportCookieSurface: scan the page for cookies + DOM
+//   resources + localStorage/sessionStorage, optionally POST the report back
+// - createHoneyCookieRuntime + initializeCookieConsentBootstrapScript +
+//   resolveCookieBootstrapConfigFromScript: loader-script glue that wires the
+//   bootstrap to your Cookie Compliance backend
+// - inventory scanner, persistence layer, change-event constant, default texts
 //
-// CookieBanner / CookieConsent / CookieDeclaration / CookiePreferences /
-// CookieTrigger are still placeholders — they'll get their real implementation
-// in Phase 2.2 (CookieBootstrap script) and 2.3-2.5 (UI port with .honey-* styling).
+// Subpath entry @banzamel/honey/cookie-consent-bootstrap auto-runs the loader
+// when included via <script src>.
+//
+// Still placeholders (Phase 2.3-2.5):
+// - CookieBanner, CookieConsent, CookieDeclaration, CookiePreferences, CookieTrigger
 
 // Token + base CSS — side-effect import so consumers get styles automatically.
 import './tokens.css'
@@ -39,6 +47,33 @@ export type {
     CookieConsentContextValue,
     HoneyConsentChangeEventDetail,
 } from './components/CookieConsentProvider'
+
+// Bootstrap (cookie-blocking script + scan/report helpers + runtime factory)
+export {
+    autoBootstrapCookieConsent,
+    bootstrapCookieConsent,
+    readCookieBootstrapConfig,
+    reportCookieSurface,
+    scanCookieSurface,
+    createHoneyCookieRuntime,
+    initializeCookieConsentBootstrapScript,
+    resolveCookieBootstrapConfigFromScript,
+    HONEY_COOKIE_BOOTSTRAP_CONFIG_KEY,
+    HONEY_COOKIE_RUNTIME_KEY,
+    HONEY_COOKIE_RUNTIME_READY_EVENT,
+} from './components/CookieBootstrap'
+export type {
+    CookieBootstrapConfig,
+    CookieBootstrapHandle,
+    CookieBootstrapResourceKind,
+    CookieBootstrapResourceRules,
+    CookieBootstrapScanOptions,
+    CookieScanCookieItem,
+    CookieScanReport,
+    CookieScanResourceItem,
+    CookieScanStorageItem,
+    HoneyCookieRuntime,
+} from './components/CookieBootstrap'
 
 // UI components (placeholders — Phase 2.3-2.5)
 export {CookieBanner} from './components/CookieBanner'
