@@ -1,6 +1,6 @@
 {
     "name": "@banzamel/honey",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Standalone, themable cookie-consent system — banner, preferences, declaration, GDPR/RODO-friendly. Works on its own; sweet alongside MineralUI.",
     "private": false,
     "type": "module",
@@ -37,9 +37,14 @@
     },
     "files": [
         "dist",
+        "bin",
+        "scripts",
         "README.md",
         "LICENSE"
     ],
+    "bin": {
+        "honey": "bin/honey.js"
+    },
     "sideEffects": [
         "*.css",
         "dist/*.js",
@@ -51,7 +56,8 @@
         "preview": "vite preview",
         "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
         "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "npm run build",
+        "postinstall": "node ./scripts/honey-postinstall.mjs"
     },
     "peerDependencies": {
         "react": ">=18.0.0",
