@@ -1,30 +1,17 @@
-// Public surface for @banzamel/honey 0.4.0 (Phase 2.3 — CSS primitives
-// landed, UI components still placeholders that render null).
-//
-// Working today (behaviour-equivalent to @banzamel/mineralui-pro@1.x):
-// - CookieConsentProvider + useCookieConsent / useOptionalCookieConsent
-// - bootstrapCookieConsent / autoBootstrapCookieConsent: blocks third-party
-//   <script>/<iframe>/<img>, MutationObserver-watches for late injections,
-//   patches Node insertion APIs, syncs to consent changes
-// - scanCookieSurface / reportCookieSurface: scan the page for cookies + DOM
-//   resources + localStorage/sessionStorage, optionally POST the report back
-// - createHoneyCookieRuntime + initializeCookieConsentBootstrapScript +
-//   resolveCookieBootstrapConfigFromScript: loader-script glue that wires the
-//   bootstrap to your Cookie Compliance backend
-// - inventory scanner, persistence layer, change-event constant, default texts
-//
-// Subpath entry @banzamel/honey/cookie-consent-bootstrap auto-runs the loader
-// when included via <script src>.
-//
-// Still placeholders (Phase 2.3-2.5):
-// - CookieBanner, CookieConsent, CookieDeclaration, CookiePreferences, CookieTrigger
+// Public surface for @banzamel/honey 0.5.0 (Phase 2.4 — CookieBanner and
+// CookieTrigger are real React components now, painted with the .honey-* CSS
+// primitives. Three placeholders left: CookieConsent (modal variant),
+// CookieDeclaration (inventory table), CookiePreferences (drawer). Phase 2.5.)
 
-// Token + base CSS — side-effect imports so consumers get styles automatically.
-// `tokens.css` holds CSS variables consumers can override; `primitives.css`
-// holds the `.honey-btn` / `.honey-card` / `.honey-drawer` / `.honey-toggle` /
-// `.honey-table` styles the cookie components paint themselves with.
+// Token + primitive CSS — side-effect imports so consumers get styles
+// automatically the first time they import anything from @banzamel/honey.
 import './tokens.css'
 import './primitives.css'
+// Component-specific layout (only the rules each component adds on top of
+// the shared primitives). Tree-shaking cannot drop CSS, so we import here
+// to keep all paint rules in one bundle.
+import './components/CookieBanner/CookieBanner.css'
+import './components/CookieTrigger/CookieTrigger.css'
 
 // Provider, context, persistence, inventory, defaults
 export {
@@ -79,10 +66,18 @@ export type {
     HoneyCookieRuntime,
 } from './components/CookieBootstrap'
 
-// UI components (placeholders — Phase 2.3-2.5)
+// UI components — real implementations
 export {CookieBanner} from './components/CookieBanner'
-export type {CookieBannerProps} from './components/CookieBanner'
+export type {
+    CookieBannerProps,
+    CookieBannerPosition,
+    CookieBannerVariant,
+} from './components/CookieBanner'
 
+export {CookieTrigger} from './components/CookieTrigger'
+export type {CookieTriggerProps, CookieTriggerVariant} from './components/CookieTrigger'
+
+// UI components (placeholders — Phase 2.5)
 export {CookieConsent} from './components/CookieConsent'
 export type {CookieConsentProps} from './components/CookieConsent'
 
@@ -91,13 +86,6 @@ export type {CookieDeclarationProps} from './components/CookieDeclaration'
 
 export {CookiePreferences} from './components/CookiePreferences'
 export type {CookiePreferencesProps} from './components/CookiePreferences'
-
-export {CookieTrigger} from './components/CookieTrigger'
-export type {CookieTriggerProps} from './components/CookieTrigger'
-
-// Scaffold smoke-test (removed before 1.0).
-export {HoneyJar} from './components/HoneyJar'
-export type {HoneyJarProps} from './components/HoneyJar'
 
 // Shared types
 export type {

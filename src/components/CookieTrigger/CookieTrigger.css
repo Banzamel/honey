@@ -1,0 +1,10 @@
+/* Native <button> styled as a link — reset borders, padding, background.
+ * Only used by the 'link' variant; the 'button' / 'ghost' variants get the
+ * full .honey-btn treatment from primitives.css. */
+.honey-cookie-trigger-link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}

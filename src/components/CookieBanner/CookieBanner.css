@@ -1,0 +1,139 @@
+/* Layout for the banner portal + the inner surface. The visual primitives
+ * (.honey-card, .honey-btn, .honey-cookie-banner-* color) come from primitives.css.
+ * Only positioning and arrangement live here. */
+
+.honey-cookie-banner-portal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: var(--honey-z-banner);
+    display: flex;
+    justify-content: center;
+    padding: var(--honey-space-md);
+    pointer-events: none;
+}
+
+.honey-cookie-banner-portal-top {
+    top: 0;
+}
+
+.honey-cookie-banner-portal-bottom {
+    bottom: 0;
+}
+
+.honey-cookie-banner {
+    pointer-events: auto;
+    width: min(100%, 1120px);
+    animation: honey-banner-slide-in 220ms ease-out;
+}
+
+.honey-cookie-banner-full {
+    width: 100%;
+}
+
+@keyframes honey-banner-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Portal-top variant slides down instead of up. */
+.honey-cookie-banner-portal-top .honey-cookie-banner {
+    animation-name: honey-banner-slide-in-top;
+}
+
+@keyframes honey-banner-slide-in-top {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.honey-cookie-banner-surface {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+}
+
+[data-honey-theme='light'] .honey-cookie-banner-surface {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+}
+
+.honey-cookie-banner-bar .honey-card-body {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--honey-space-lg);
+    padding: var(--honey-space-lg);
+}
+
+.honey-cookie-banner-card .honey-card-body {
+    flex-direction: column;
+    gap: var(--honey-space-lg);
+    padding: var(--honey-space-xl);
+}
+
+.honey-cookie-banner-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--honey-space-sm);
+    min-width: 0;
+}
+
+.honey-cookie-banner-title {
+    font-size: var(--honey-font-size-lg);
+    font-weight: 600;
+    color: var(--honey-text);
+    line-height: 1.3;
+}
+
+.honey-cookie-banner-description {
+    color: var(--honey-text-secondary);
+    font-size: var(--honey-font-size-sm);
+    line-height: 1.5;
+}
+
+.honey-cookie-banner-actions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--honey-space-sm);
+}
+
+.honey-cookie-banner-card .honey-cookie-banner-actions {
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.honey-cookie-banner-dismiss {
+    align-self: center;
+}
+
+/* Mobile: stack the content column on top of the actions and stretch the
+ * action buttons to share the row width evenly. */
+@media (max-width: 720px) {
+    .honey-cookie-banner-bar .honey-card-body {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .honey-cookie-banner-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .honey-cookie-banner-actions .honey-btn {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+}
