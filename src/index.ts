@@ -1,6 +1,9 @@
-// Public surface for @banzamel/honey 0.6.0 (Phase 2.5 — every cookie component
-// is now a real React implementation. Feature-parity with the
-// @banzamel/mineralui-pro@1.x cookie module.)
+// Public surface for @banzamel/honey 0.7.0 (Phase 3 — licensing wiring is in.
+// The package CLI / postinstall / activation runtime register installs with
+// the Honey licensing backend at api.mineralui.io. Cookie consent UI keeps
+// working without activation — only backend premium features (audit logging,
+// cross-domain consent sharing, server-side scan reports) require a registered
+// install. Components and bootstrap shipped in Phase 2.1-2.5 are unchanged.)
 
 // Token + primitive CSS — side-effect imports so consumers get styles
 // automatically the first time they import anything from @banzamel/honey.
@@ -119,3 +122,8 @@ export type {
 
 // Utilities
 export {cn} from './utils/cn'
+
+// Activation / licensing — read whether this install is registered with the
+// Honey licensing backend so consumers can render their own admin chip.
+export {isHoneyActivated, getHoneyActivationState} from './activation'
+export type {HoneyActivationState} from './activation'
