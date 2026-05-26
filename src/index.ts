@@ -1,7 +1,6 @@
-// Public surface for @banzamel/honey 0.5.0 (Phase 2.4 — CookieBanner and
-// CookieTrigger are real React components now, painted with the .honey-* CSS
-// primitives. Three placeholders left: CookieConsent (modal variant),
-// CookieDeclaration (inventory table), CookiePreferences (drawer). Phase 2.5.)
+// Public surface for @banzamel/honey 0.6.0 (Phase 2.5 — every cookie component
+// is now a real React implementation. Feature-parity with the
+// @banzamel/mineralui-pro@1.x cookie module.)
 
 // Token + primitive CSS — side-effect imports so consumers get styles
 // automatically the first time they import anything from @banzamel/honey.
@@ -12,6 +11,9 @@ import './primitives.css'
 // to keep all paint rules in one bundle.
 import './components/CookieBanner/CookieBanner.css'
 import './components/CookieTrigger/CookieTrigger.css'
+import './components/CookiePreferences/CookiePreferences.css'
+import './components/CookieDeclaration/CookieDeclaration.css'
+import './components/CookieConsent/CookieConsent.css'
 
 // Provider, context, persistence, inventory, defaults
 export {
@@ -66,7 +68,7 @@ export type {
     HoneyCookieRuntime,
 } from './components/CookieBootstrap'
 
-// UI components — real implementations
+// UI components
 export {CookieBanner} from './components/CookieBanner'
 export type {
     CookieBannerProps,
@@ -77,15 +79,21 @@ export type {
 export {CookieTrigger} from './components/CookieTrigger'
 export type {CookieTriggerProps, CookieTriggerVariant} from './components/CookieTrigger'
 
-// UI components (placeholders — Phase 2.5)
-export {CookieConsent} from './components/CookieConsent'
-export type {CookieConsentProps} from './components/CookieConsent'
+export {CookiePreferences} from './components/CookiePreferences'
+export type {
+    CookiePreferencesProps,
+    CookiePreferencesVariant,
+} from './components/CookiePreferences'
 
 export {CookieDeclaration} from './components/CookieDeclaration'
 export type {CookieDeclarationProps} from './components/CookieDeclaration'
 
-export {CookiePreferences} from './components/CookiePreferences'
-export type {CookiePreferencesProps} from './components/CookiePreferences'
+export {CookieConsent} from './components/CookieConsent'
+export type {
+    CookieConsentProps,
+    CookieConsentPlacement,
+    CookieConsentTriggerPlacement,
+} from './components/CookieConsent'
 
 // Shared types
 export type {

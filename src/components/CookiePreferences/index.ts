@@ -1,2 +1,2 @@
 export {CookiePreferences} from './CookiePreferences'
-export type {CookiePreferencesProps} from './CookiePreferences'
+export type {CookiePreferencesProps, CookiePreferencesVariant} from './CookiePreferences'

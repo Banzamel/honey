@@ -1,0 +1,158 @@
+/* Layout for the preferences drawer/inline body. Visual surface (drawer chrome,
+ * card chrome, toggle, badge) comes from primitives.css. */
+
+.honey-cookie-preferences-body {
+    gap: var(--honey-space-lg);
+}
+
+.honey-cookie-preferences-category {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--honey-space-lg);
+    padding: var(--honey-space-md) 0;
+    border-bottom: 1px solid var(--honey-border);
+}
+
+.honey-cookie-preferences-category:last-child {
+    border-bottom: none;
+}
+
+.honey-cookie-preferences-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+}
+
+.honey-cookie-preferences-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--honey-space-sm);
+    color: var(--honey-text);
+    font-size: var(--honey-font-size-md);
+    font-weight: 600;
+}
+
+.honey-cookie-preferences-description {
+    line-height: 1.5;
+}
+
+/* Detected cookies reveal — collapsed by default, expands to a small list of
+ * per-cookie chips with provider / type / purpose metadata. */
+.honey-cookie-preferences-detected {
+    margin-top: var(--honey-space-xs);
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-sm);
+}
+
+.honey-cookie-preferences-detected-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--honey-space-sm);
+}
+
+.honey-cookie-preferences-cookie-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-sm);
+    padding: var(--honey-space-sm) var(--honey-space-md);
+    background: var(--honey-bg);
+    border: 1px solid var(--honey-border);
+    border-radius: var(--honey-radius-md);
+}
+
+.honey-cookie-preferences-cookie-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.honey-cookie-preferences-cookie-row {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--honey-space-sm);
+}
+
+.honey-cookie-preferences-cookie-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px var(--honey-space-sm);
+    background: var(--honey-surface-elevated);
+    border: 1px solid var(--honey-border);
+    border-radius: var(--honey-radius-sm);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: var(--honey-font-size-xs);
+    color: var(--honey-text);
+}
+
+/* Right-side toggle — aligns to the top of the row instead of the centre so
+ * it sits next to the category label, not adrift next to the long description. */
+.honey-cookie-preferences-toggle {
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+/* Inline-embedded variant (used inside CookieConsent banner once the user
+ * clicks Manage). Removes the inner card chrome so the body merges into the
+ * surrounding panel. */
+.honey-cookie-preferences-embedded {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-md);
+}
+
+.honey-cookie-preferences-heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+}
+
+.honey-cookie-preferences-title {
+    color: var(--honey-text);
+    font-size: var(--honey-font-size-lg);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.honey-cookie-preferences-footer {
+    margin-top: var(--honey-space-md);
+    padding-top: var(--honey-space-md);
+    border-top: 1px solid var(--honey-border);
+}
+
+.honey-cookie-preferences-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--honey-space-sm);
+    width: 100%;
+}
+
+.honey-cookie-preferences-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--honey-space-sm);
+}
+
+@media (max-width: 720px) {
+    .honey-cookie-preferences-category {
+        flex-direction: column;
+    }
+
+    .honey-cookie-preferences-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .honey-cookie-preferences-actions .honey-btn {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+}

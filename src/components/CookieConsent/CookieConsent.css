@@ -1,0 +1,191 @@
+/* Backdrop covers the whole viewport while the consent panel is open and the
+ * user is still pending — applied only on first-decision so reopening
+ * preferences from the trigger does not dim the page. */
+.honey-cookie-consent-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--honey-z-banner);
+    background: rgba(2, 6, 23, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: honey-cookie-consent-fade 200ms ease-out;
+}
+
+@keyframes honey-cookie-consent-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* The "layer" is a full-viewport positioning container so each placement can
+ * anchor the panel via flex without taking the panel itself out of flow. */
+.honey-cookie-consent-layer {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--honey-z-banner) + 1);
+    display: flex;
+    padding: var(--honey-space-lg);
+    pointer-events: none;
+}
+
+.honey-cookie-consent-panel {
+    pointer-events: auto;
+    width: min(100%, 560px);
+    max-height: calc(100vh - 2 * var(--honey-space-lg));
+    display: flex;
+    flex-direction: column;
+    animation: honey-cookie-consent-panel-in 240ms ease-out;
+}
+
+.honey-cookie-consent-card {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+@keyframes honey-cookie-consent-panel-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Placement anchors. The layer is `display: flex` so we just align the panel. */
+.honey-cookie-consent-panel-bottom-left {
+    align-self: flex-end;
+    margin-right: auto;
+}
+.honey-cookie-consent-panel-bottom-right {
+    align-self: flex-end;
+    margin-left: auto;
+}
+.honey-cookie-consent-panel-top-left {
+    align-self: flex-start;
+    margin-right: auto;
+}
+.honey-cookie-consent-panel-top-right {
+    align-self: flex-start;
+    margin-left: auto;
+}
+.honey-cookie-consent-panel-center {
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Drawer placements stretch edge-to-edge inside the layer. */
+.honey-cookie-consent-sheet {
+    width: 100%;
+    max-width: none;
+}
+
+.honey-cookie-consent-panel-top-drawer {
+    align-self: flex-start;
+    width: 100%;
+}
+.honey-cookie-consent-panel-bottom-drawer {
+    align-self: flex-end;
+    width: 100%;
+}
+
+.honey-cookie-consent-body {
+    gap: var(--honey-space-md);
+    overflow-y: auto;
+}
+
+.honey-cookie-consent-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+}
+
+.honey-cookie-consent-details {
+    margin-top: var(--honey-space-xs);
+}
+
+.honey-cookie-consent-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--honey-space-sm);
+}
+
+/* Inline preferences reveal — slides open below the CTAs once the user clicks
+ * Manage. Closed state stays in the DOM (for aria-hidden) but is height-clamped
+ * and visually compressed so screen-readers can still find the controls. */
+.honey-cookie-consent-preferences-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        max-height 320ms ease-out,
+        opacity 320ms ease-out;
+    opacity: 0;
+}
+
+.honey-cookie-consent-preferences-open {
+    max-height: 60vh;
+    overflow-y: auto;
+    opacity: 1;
+}
+
+/* Floating re-open trigger. Sits in a fixed corner of the viewport once the
+ * consent is decided so users can find their way back to preferences. */
+.honey-cookie-consent-trigger-wrap {
+    position: fixed;
+    z-index: var(--honey-z-banner);
+    padding: var(--honey-space-md);
+    pointer-events: none;
+}
+
+.honey-cookie-consent-trigger-wrap-bottom-left {
+    left: 0;
+    bottom: 0;
+}
+.honey-cookie-consent-trigger-wrap-bottom-right {
+    right: 0;
+    bottom: 0;
+}
+.honey-cookie-consent-trigger-wrap-top-left {
+    left: 0;
+    top: 0;
+}
+.honey-cookie-consent-trigger-wrap-top-right {
+    right: 0;
+    top: 0;
+}
+
+.honey-cookie-consent-trigger {
+    pointer-events: auto;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.32);
+}
+
+@media (max-width: 720px) {
+    .honey-cookie-consent-layer {
+        padding: var(--honey-space-sm);
+    }
+
+    .honey-cookie-consent-panel {
+        align-self: flex-end;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-height: calc(100vh - 2 * var(--honey-space-sm));
+    }
+
+    .honey-cookie-consent-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .honey-cookie-consent-actions .honey-btn {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+}

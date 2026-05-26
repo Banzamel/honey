@@ -1,0 +1,72 @@
+.honey-cookie-declaration {
+    width: 100%;
+}
+
+.honey-cookie-declaration-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--honey-space-xs);
+}
+
+.honey-cookie-declaration-search {
+    max-width: 360px;
+}
+
+.honey-cookie-declaration-group {
+    gap: var(--honey-space-sm);
+}
+
+/* Wrap the table in a scroll container so wide decoration tables stay readable
+ * inside narrow panels — the sticky header from primitives.css remains pinned
+ * while horizontal scroll is local to the table. */
+.honey-cookie-declaration-table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.honey-cookie-declaration-table-compact th,
+.honey-cookie-declaration-table-compact td {
+    padding: 6px var(--honey-space-sm);
+    font-size: var(--honey-font-size-xs);
+}
+
+.honey-cookie-declaration-empty {
+    background: var(--honey-bg);
+    border: 1px dashed var(--honey-border);
+    border-radius: var(--honey-radius-md);
+}
+
+@media (max-width: 720px) {
+    /* On phones the multi-column declaration table never reads comfortably —
+     * collapse to a card list where each row stacks its cells with the column
+     * label inlined via data attributes. Consumers usually opt into searchable
+     * mode on mobile anyway. */
+    .honey-cookie-declaration-table {
+        display: block;
+    }
+
+    .honey-cookie-declaration-table thead {
+        display: none;
+    }
+
+    .honey-cookie-declaration-table tbody,
+    .honey-cookie-declaration-table tr {
+        display: block;
+    }
+
+    .honey-cookie-declaration-table tr {
+        border: 1px solid var(--honey-border);
+        border-radius: var(--honey-radius-md);
+        margin-bottom: var(--honey-space-sm);
+        padding: var(--honey-space-sm);
+        background: var(--honey-surface);
+    }
+
+    .honey-cookie-declaration-table td {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--honey-space-md);
+        padding: 4px 0;
+        border-bottom: none;
+    }
+}
