@@ -98,6 +98,12 @@ export type {
     CookieConsentTriggerPlacement,
 } from './components/CookieConsent'
 
+// Drop-in wrapper combining provider + banner + preferences drawer (and
+// optionally the footer trigger). Lets consumers wire a compliant surface
+// with a single component.
+export {HoneySetup} from './components/HoneySetup'
+export type {HoneySetupProps} from './components/HoneySetup'
+
 // Shared types
 export type {
     HoneyColor,

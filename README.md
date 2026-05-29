@@ -2,24 +2,51 @@
 
 **Cookie consent for React, done right.** Drop in a banner, a preferences drawer and a declaration table — all themable, all RODO / GDPR / ePrivacy friendly, all in one tiny package.
 
+## Quick install
+
+**1. Drop the bootstrap script in `<head>`** — parks third-party trackers until your visitors say yes, and loads ahead of React so the wall is in place from the first paint.
+
+```html
+<script
+    src="https://api.mineralui.io/cookie/bootstrap.min.js"
+    data-site-key="YOUR_SITE_KEY"
+    async
+></script>
+```
+
+**2. Install the package**
+
 ```bash
 npm install @banzamel/honey
 ```
 
+**3. Wrap your app**
+
 ```tsx
-import {CookieConsentProvider, CookieBanner} from '@banzamel/honey'
+import {HoneySetup} from '@banzamel/honey'
 
 export default function App() {
     return (
-        <CookieConsentProvider>
+        <HoneySetup>
             <YourApp />
-            <CookieBanner />
-        </CookieConsentProvider>
+        </HoneySetup>
     )
 }
 ```
 
-That's it. Your site is compliant on the next refresh.
+`HoneySetup` bundles the provider, the banner and the preferences drawer in one tag. That's it — your site is compliant on the next refresh.
+
+Need finer control? Compose the primitives directly:
+
+```tsx
+import {CookieConsentProvider, CookieBanner, CookiePreferences} from '@banzamel/honey'
+
+<CookieConsentProvider>
+    <YourApp />
+    <CookieBanner />
+    <CookiePreferences />
+</CookieConsentProvider>
+```
 
 ## What you get
 
