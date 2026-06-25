@@ -1,6 +1,6 @@
 {
     "name": "@banzamel/honey",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "description": "Standalone, themable cookie-consent system — banner, preferences, declaration, GDPR/RODO-friendly. Works on its own; sweet alongside MineralUI.",
     "private": false,
     "type": "module",
@@ -9,7 +9,9 @@
     "types": "dist/index.d.ts",
     "typesVersions": {
         "*": {
-            "cookie-consent-bootstrap": ["dist/cookie-consent-bootstrap.d.ts"]
+            "cookie-consent-bootstrap": [
+                "dist/cookie-consent-bootstrap.d.ts"
+            ]
         }
     },
     "exports": {
