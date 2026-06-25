@@ -6,9 +6,16 @@ Sensible defaults, themable through CSS variables, customizable through provider
 
 ## License
 
-The npm package is MIT. The hosted compliance backend — audit logs, consent receipts, multi-domain consent sharing, scan reports — is a paid add-on. License and activation flow at [honey.mineralui.io/pricing](https://honey.mineralui.io/pricing).
+The npm package itself is MIT. The hosted compliance backend — audit logging, server-side consent receipts, multi-domain consent sharing, hosted scan reports, declaration delivery from your honey.mineralui.io portal — requires a one-time license:
 
-Without a license the UI components and the head-script behave the same. Only the backend pieces are gated.
+1. Buy a license at [honey.mineralui.io/pricing](https://honey.mineralui.io/pricing).
+2. Activate the install:
+   ```bash
+   npx honey activate --license-key=YOUR_LICENSE_KEY
+   ```
+3. Done. The next page load talks to the backend; your portal at honey.mineralui.io tracks installations, registered domains and consent history.
+
+Without a license the UI components still work — banners render, users can accept/reject, consent is saved locally to their browser. You just don't get the hosted compliance pieces.
 
 ## Documentation
 
