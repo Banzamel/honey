@@ -1,19 +1,8 @@
 # Honey 🍯
 
-Honey is a React package for cookie consent. It ships five components — banner, modal wall, preferences drawer, declaration table and a footer trigger — plus a head-script that parks third-party trackers until the matching category is accepted. Compatible with RODO, GDPR and ePrivacy.
+Honey is a React package for cookie consent. Drop a script tag in `<head>`, wrap your app in `<HoneySetup>`, and your visitors get a banner, a preferences drawer, a declaration table and a footer trigger out of the box. RODO, GDPR and ePrivacy compatible.
 
-Compose the parts yourself or use `<HoneySetup>` for a one-tag drop-in. Style with CSS variables. Pair with the hosted backend for audit logs, consent receipts and multi-domain sharing.
-
-## What's in the package
-
-- **CookieBanner** — non-blocking top or bottom bar with Accept all / Reject / Manage actions.
-- **CookieConsent** — modal-wall variant for jurisdictions that require an explicit decision before any page interaction.
-- **CookiePreferences** — per-category drawer with a "Detected on this site" reveal under each category.
-- **CookieDeclaration** — searchable cookie table for the privacy page.
-- **CookieTrigger** — footer button to reopen the preferences drawer.
-- **cookie-consent-bootstrap** — head-script that holds back `<script>`, `<iframe>` and `<img>` tags marked with `data-cookie-category` until the matching category is accepted.
-
-All components are keyboard-navigable, screen-reader labelled and responsive.
+Sensible defaults, themable through CSS variables, customizable through provider props. Pair with the hosted backend for audit logs, consent receipts and multi-domain sharing.
 
 ## License
 
