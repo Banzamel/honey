@@ -189,6 +189,23 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.32);
 }
 
+/* Icon variant — compact square button holding just the cookie glyph. */
+.honey-cookie-consent-trigger-icon {
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+}
+
+/* Shape modifiers. `circle` + icon is a round button; `circle` on the labelled
+ * button reads as a pill. `rounded` softens the corners. */
+.honey-cookie-consent-trigger-circle {
+    border-radius: var(--honey-radius-full);
+}
+.honey-cookie-consent-trigger-rounded {
+    border-radius: var(--honey-radius-lg);
+}
+
 @media (max-width: 720px) {
     .honey-cookie-consent-layer {
         padding: var(--honey-space-sm);

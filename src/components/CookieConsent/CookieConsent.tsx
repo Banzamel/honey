@@ -33,6 +33,10 @@ export type CookieConsentTriggerPlacement =
     | 'top-left'
     | 'top-right'
 
+export type CookieConsentTriggerVariant = 'label' | 'icon'
+
+export type CookieConsentTriggerShape = 'default' | 'circle' | 'rounded'
+
 export interface CookieConsentProps
     extends Omit<CookieConsentProviderProps, 'children'>,
         Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'color' | 'children'> {
@@ -44,6 +48,13 @@ export interface CookieConsentProps
     /** Where the floating re-open button sits once the user has decided.
      *  `'none'` hides the trigger entirely. */
     triggerPlacement?: CookieConsentTriggerPlacement
+    /** Floating trigger appearance. `'label'` (default) shows the text button;
+     *  `'icon'` shows a compact cookie-icon button. */
+    triggerVariant?: CookieConsentTriggerVariant
+    /** Floating trigger shape. `'default'` keeps the standard button radius;
+     *  `'circle'` is a round button; `'rounded'` is a soft-cornered square. Pairs
+     *  naturally with `triggerVariant='icon'`. */
+    triggerShape?: CookieConsentTriggerShape
     /** Lock body scroll while the consent panel is up. Default `true` — the
      *  spec calls this the "opt-in" wall behaviour. */
     blockInteraction?: boolean
@@ -91,9 +102,36 @@ function useCookieRuntime(): HoneyCookieRuntime | null {
     return runtime
 }
 
+/** Built-in cookie glyph for the `triggerVariant='icon'` floating button.
+ *  Inherits the button text colour through `currentColor`. */
+function CookieGlyph() {
+    return (
+        <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+        >
+            <path
+                d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5.8.8 0 0 0-.9-.8 3.5 3.5 0 0 1-3.8-3.8.8.8 0 0 0-.8-.9 2.6 2.6 0 0 1-2.4-2.4.8.8 0 0 0-.9-.6Z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
+            <circle cx="9" cy="10" r="1" fill="currentColor" />
+            <circle cx="14.5" cy="13.5" r="1" fill="currentColor" />
+            <circle cx="9.5" cy="15" r="0.9" fill="currentColor" />
+        </svg>
+    )
+}
+
 interface ContentProps {
     placement: CookieConsentPlacement
     triggerPlacement: CookieConsentTriggerPlacement
+    triggerVariant: CookieConsentTriggerVariant
+    triggerShape: CookieConsentTriggerShape
     blockInteraction: boolean
     details?: ReactNode
 }
@@ -101,6 +139,8 @@ interface ContentProps {
 function CookieConsentContent({
     placement,
     triggerPlacement,
+    triggerVariant,
+    triggerShape,
     blockInteraction,
     details,
 }: ContentProps) {
@@ -219,9 +259,21 @@ function CookieConsentContent({
                               variant="button"
                               color="primary"
                               aria-label={consent.texts.triggerLabel}
-                              className="honey-cookie-consent-trigger"
+                              className={cn(
+                                  'honey-cookie-consent-trigger',
+                                  triggerVariant === 'icon'
+                                      ? 'honey-cookie-consent-trigger-icon'
+                                      : undefined,
+                                  triggerShape !== 'default'
+                                      ? `honey-cookie-consent-trigger-${triggerShape}`
+                                      : undefined
+                              )}
                           >
-                              {consent.texts.triggerLabel}
+                              {triggerVariant === 'icon' ? (
+                                  <CookieGlyph />
+                              ) : (
+                                  consent.texts.triggerLabel
+                              )}
                           </CookieTrigger>
                       </div>,
                       document.body
@@ -245,6 +297,8 @@ function CookieConsentContent({
 export function CookieConsent({
     placement = 'bottom-left',
     triggerPlacement = 'bottom-left',
+    triggerVariant = 'label',
+    triggerShape = 'default',
     blockInteraction = true,
     details,
     children,
@@ -285,6 +339,8 @@ export function CookieConsent({
             <CookieConsentContent
                 placement={placement}
                 triggerPlacement={triggerPlacement}
+                triggerVariant={triggerVariant}
+                triggerShape={triggerShape}
                 blockInteraction={blockInteraction}
                 details={details}
             />

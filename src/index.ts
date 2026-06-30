@@ -96,6 +96,8 @@ export type {
     CookieConsentProps,
     CookieConsentPlacement,
     CookieConsentTriggerPlacement,
+    CookieConsentTriggerVariant,
+    CookieConsentTriggerShape,
 } from './components/CookieConsent'
 
 // Drop-in wrapper combining provider + banner + preferences drawer (and

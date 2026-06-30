@@ -3,4 +3,6 @@ export type {
     CookieConsentProps,
     CookieConsentPlacement,
     CookieConsentTriggerPlacement,
+    CookieConsentTriggerVariant,
+    CookieConsentTriggerShape,
 } from './CookieConsent'
