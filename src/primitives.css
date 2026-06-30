@@ -245,9 +245,21 @@
     animation: honey-drawer-in 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Right-edge slide (default drawer). The left-edge counterpart is shared so the
+ * preferences drawer and CookieConsent's `left-drawer` placement animate from
+ * one source instead of each defining their own keyframes. */
 @keyframes honey-drawer-in {
     from {
         transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes honey-drawer-in-left {
+    from {
+        transform: translateX(-100%);
     }
     to {
         transform: translateX(0);

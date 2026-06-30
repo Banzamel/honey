@@ -94,6 +94,29 @@
     width: 100%;
 }
 
+/* Side drawers — full-height sheets anchored to the left or right edge, sized
+ * like the preferences drawer rather than stretched edge-to-edge. They reuse the
+ * shared `honey-drawer-in*` slide keyframes from primitives.css so there is one
+ * source of truth for the drawer motion. */
+.honey-cookie-consent-panel-left-drawer,
+.honey-cookie-consent-panel-right-drawer {
+    align-self: stretch;
+    width: min(100%, 420px);
+    max-height: none;
+}
+.honey-cookie-consent-panel-left-drawer {
+    margin-right: auto;
+    animation: honey-drawer-in-left 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.honey-cookie-consent-panel-right-drawer {
+    margin-left: auto;
+    animation: honey-drawer-in 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.honey-cookie-consent-panel-left-drawer .honey-cookie-consent-card,
+.honey-cookie-consent-panel-right-drawer .honey-cookie-consent-card {
+    flex: 1 1 auto;
+}
+
 .honey-cookie-consent-body {
     gap: var(--honey-space-md);
     overflow-y: auto;

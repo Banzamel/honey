@@ -22,6 +22,8 @@ export type CookieConsentPlacement =
     | 'center'
     | 'top-drawer'
     | 'bottom-drawer'
+    | 'left-drawer'
+    | 'right-drawer'
     | 'modal'
 
 export type CookieConsentTriggerPlacement =
@@ -35,8 +37,9 @@ export interface CookieConsentProps
     extends Omit<CookieConsentProviderProps, 'children'>,
         Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'color' | 'children'> {
     /** Where the consent panel sits on the page when open. `'modal'` centres the
-     *  panel and dims the rest; `'bottom-drawer'` / `'top-drawer'` stretch
-     *  edge-to-edge; corner placements anchor to one viewport corner. */
+     *  panel and dims the rest; `'top-drawer'` / `'bottom-drawer'` stretch
+     *  edge-to-edge; `'left-drawer'` / `'right-drawer'` are full-height side
+     *  sheets; corner placements anchor to one viewport corner. */
     placement?: CookieConsentPlacement
     /** Where the floating re-open button sits once the user has decided.
      *  `'none'` hides the trigger entirely. */
